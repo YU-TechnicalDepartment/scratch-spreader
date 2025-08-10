@@ -37,20 +37,34 @@
       font-size: 13px;
       color: #333;
     }
+    #redirectBtn {
+      background-color: #2196F3;
+    }
+    #redirectBtn:hover {
+      background-color: #1976D2;
+    }
   </style>
 </head>
 <body>
   <h3>Scratch拡散ツール</h3>
-  <label for="projectId">プロジェクトID</label>
-  <input type="text" id="projectId" placeholder="例: 123456789">
 
-  <label for="startIndex">開始番号</label>
-  <input type="number" id="startIndex" min="1" placeholder="例: 1">
+  <div id="formArea" style="display: none;">
+    <label for="projectId">プロジェクトID</label>
+    <input type="text" id="projectId" placeholder="例: 123456789">
 
-  <label for="endIndex">終了番号（または *）</label>
-  <input type="text" id="endIndex" placeholder="例: 10 または *">
+    <label for="startIndex">開始番号</label>
+    <input type="number" id="startIndex" min="1" placeholder="例: 1">
 
-  <button id="spreadBtn">拡散開始</button>
+    <label for="endIndex">終了番号（または *）</label>
+    <input type="text" id="endIndex" placeholder="例: 10 または *">
+
+    <button id="spreadBtn">拡散開始</button>
+  </div>
+
+  <div id="redirectArea" style="display: none;">
+    <p>この拡張機能は<br><strong>Scratchのスタジオ一覧ページ</strong>でのみ使えます。</p>
+    <button id="redirectBtn">スタジオ一覧ページへ移動</button>
+  </div>
 
   <div id="status"></div>
 
