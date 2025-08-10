@@ -1,8 +1,24 @@
+const formArea = document.getElementById("formArea");
+const redirectArea = document.getElementById("redirectArea");
+const statusDiv = document.getElementById("status");
+
+chrome.tabs.query({ active: true, currentWindow: true }, ([tab]) => {
+  const expectedUrl = "https://scratch.mit.edu/explore/studios/all/";
+  if (tab.url.startsWith(expectedUrl)) {
+    formArea.style.display = "block";
+  } else {
+    redirectArea.style.display = "block";
+    document.getElementById("redirectBtn").addEventListener("click", () => {
+      chrome.tabs.update(tab.id, { url: expectedUrl });
+      window.close(); // ポップアップを閉じる
+    });
+  }
+});
+
 document.getElementById("spreadBtn").addEventListener("click", async () => {
   const projectId = document.getElementById("projectId").value.trim();
   const startRaw = document.getElementById("startIndex").value.trim();
   const endRaw = document.getElementById("endIndex").value.trim();
-  const statusDiv = document.getElementById("status");
 
   if (!projectId || !startRaw || !endRaw) {
     statusDiv.textContent = "⚠️ 全ての項目を入力してください";
@@ -13,7 +29,7 @@ document.getElementById("spreadBtn").addEventListener("click", async () => {
   let endIndex;
 
   if (endRaw === "*") {
-    endIndex = null; // 後で決定
+    endIndex = null;
   } else {
     const endParsed = parseInt(endRaw, 10);
     if (isNaN(endParsed) || endParsed < startIndex + 1) {
